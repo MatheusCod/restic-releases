@@ -5,6 +5,9 @@ set -e
 FTP_HOST='oplab9.parqtec.unicamp.br'
 LOCALPATH=$TRAVIS_BUILD_DIR/restic/output
 REMOTEPATH='/ppc64el/restic'
+ROOTPATH="~/rpmbuild/RPMS/ppc64le"
+REPO1="/repository/debian/ppc64el/restic"
+REPO2="/repository/rpm/ppc64le/restic"
 github_version=$(cat github_version.txt)
 ftp_version=$(cat ftp_version.txt)
 
@@ -25,7 +28,7 @@ then
   if [ $github_version = $ftp_version ]
   then
     lftp -c "open -u $NEW_USER,$NEW_PASS ftp://oplab9.parqtec.unicamp.br; put -O /teste/matheus/ $LOCALPATH/restic-$github_version-ppc64le.deb"
-    sudo lftp -c "open -u $NEW_USER,$NEW_PASS ftp://oplab9.parqtec.unicamp.br; put -O /teste/matheus/ $LOCALPATH/rpmbuild/RPMS/ppc64le/restic-$github_version-1.ppc64le.rpm"
+    sudo lftp -c "open -u $NEW_USER,$NEW_PASS ftp://oplab9.parqtec.unicamp.br; put -O /teste/matheus/ $ROOTPATH/restic-$github_version-1.ppc64le.rpm"
   fi
 fi
 
