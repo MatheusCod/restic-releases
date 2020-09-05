@@ -8,7 +8,7 @@ REMOTEPATH='/ppc64el/restic'
 github_version=$(cat github_version.txt)
 ftp_version=$(cat ftp_version.txt)
 
-if [ $github_version == $ftp_version ]
+if [ $github_version != $ftp_version ]
 then
   cd $LOCALPATH
   git clone https://$USERNAME:$TOKEN@github.com/Unicamp-OpenPower/repository-scrips.git
