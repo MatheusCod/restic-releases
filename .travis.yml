@@ -1,6 +1,7 @@
 language: go
 os: linux
 arch: ppc64le
+dist: bionic
 go: "1.14.x"
 env: RESTIC_TEST_FUSE=0 RESTIC_TEST_CLOUD_BACKENDS=0
 cache:
