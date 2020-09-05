@@ -30,15 +30,3 @@ then
     sudo lftp -c "open -u $USER,$PASS ftp://oplab9.parqtec.unicamp.br; put -O $REPO2 $ROOTPATH/restic-$github_version-1.ppc64le.rpm"
   fi
 fi
-
-# Upload files from LOCALPATH recursively to REMOTEPATH
-#lftp -f "
-#set dns:order "inet"
-#set xfer:use-temp-file yes
-#set xfer:temp-file-name *.tmp
-#open ftp://$FTP_HOST
-#user $USER $PASS
-#mirror -R --continue --reverse --no-empty-dirs --no-perms -I restic* $LOCALPATH $REMOTEPATH
-#bye
-#"
-
