@@ -11,7 +11,7 @@ REPO2="/repository/rpm/ppc64le/restic"
 github_version=$(cat github_version.txt)
 ftp_version=$(cat ftp_version.txt)
 
-if [ $github_version = $ftp_version ]
+if [ $github_version != $ftp_version ]
 then
   cd $LOCALPATH
   git clone https://$USERNAME:$TOKEN@github.com/Unicamp-OpenPower/repository-scrips.git
@@ -25,10 +25,10 @@ then
   sudo ./empacotar-deb.sh restic restic-$github_version $github_version " "
   sudo ./empacotar-rpm.sh restic restic-$github_version $github_version " " "restic is a program that does backups right"
   ls
-  if [ $github_version = $ftp_version ]
+  if [ $github_version > $ftp_version ]
   then
-    lftp -c "open -u $NEW_USER,$NEW_PASS ftp://oplab9.parqtec.unicamp.br; put -O /teste/matheus/ $LOCALPATH/restic-$github_version-ppc64le.deb"
-    sudo lftp -c "open -u $NEW_USER,$NEW_PASS ftp://oplab9.parqtec.unicamp.br; put -O /teste/matheus/ $ROOTPATH/restic-$github_version-1.ppc64le.rpm"
+    lftp -c "open -u $USER,$PASS ftp://oplab9.parqtec.unicamp.br; put -O $REPO1 $LOCALPATH/restic-$github_version-ppc64le.deb"
+    sudo lftp -c "open -u $USER,$PASS ftp://oplab9.parqtec.unicamp.br; put -O $REPO2 $ROOTPATH/restic-$github_version-1.ppc64le.rpm"
   fi
 fi
 
