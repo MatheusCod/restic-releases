@@ -18,6 +18,7 @@ then
   sudo mv empacotar-deb.sh $LOCALPATH
   sudo mv empacotar-rpm.sh $LOCALPATH
   cd $LOCALPATH
+  ls
   sudo ./empacotar-deb.sh restic restic-$github_version $github_version " "
   sudo ./empacotar-rpm.sh restic restic-$github_version $github_version " " "restic is a program that does backups right"
   if [ $github_version = $ftp_version ]
