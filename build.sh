@@ -4,7 +4,7 @@ set -e
 github_version=$(cat github_version.txt)
 ftp_version=$(cat ftp_version.txt)
 
-if [ $github_version != $ftp_version ]
+if [ $github_version = $ftp_version ]
 then
   echo "1"
   wget https://github.com/restic/restic/releases/download/v$github_version/restic-$github_version.tar.gz
