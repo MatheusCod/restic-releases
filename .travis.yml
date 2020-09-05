@@ -1,7 +1,7 @@
 language: go
 os: linux
 arch: ppc64le
-go: "1.13.x"
+go: "1.14.x"
 env: RESTIC_TEST_FUSE=0 RESTIC_TEST_CLOUD_BACKENDS=0
 cache:
   directories:
@@ -10,17 +10,18 @@ cache:
 
 before_install:
   - sudo apt update
+  - sudo apt install rpm
   - sudo apt install build-essential python3 tar wget
   - python3 version.py
-  - RELEASE_VERSION=$(cat release_version.txt)
+  - GITHUB_VERSION=$(cat github_version.txt)
   - FTP_VERSION=$(cat ftp_version.txt)
   - BUILD=true
-  - if [ $RELEASE_VERSION == $FTP_VERSION ]; then
+  - if [ $GITHUB_VERSION == $FTP_VERSION ]; then
     BUILD=false;
     fi
 
 script:
-  - RELEASE_VERSION=$(cat release_version.txt)
+  - GITHUB_VERSION=$(cat github_version.txt)
   - if [ BUILD == true ]; then
     bash build.sh;
     else
@@ -32,10 +33,10 @@ deploy:
   script: if [ BUILD == true ]; then sudo apt-get install -y lftp; bash ftp_upload.sh; else echo "Deploy skipped"; fi
   skip_cleanup: true
 
-notifications:
-  slack:
-    rooms:
-      - secure: "jqKVge1LT5PaOJcjT89wLwiSwhL0b4bOcr0gOxLSHgyjRujToCd9K1+J5eaIwh8+PhCS5L7rGMT+0u5FlZ1Ltx1on1wjumDC90UC1GJsrhAr06ECoIvcogcMiGLmNUT77gZqaIf3Eeqg7aSpKAM3B8NLs2cHtsi94p5tyr2LfamGadD+1dUJQ/tD0vUYtvLVsp1LOOgkf7PuaSc3mb33HYW1QNF8rpw0JDcggjN7Yd6X6T6Qoq9fTktsP0a5ZXFB+zRKxuHcOFa8VoZl8GURpjeuM/cibD23Zgo+nUKef3Cmt1cS1eHzOuGOcYoEiPF5K5ohhh34GY/2H9OyCvFZcK6y194AU0X4vQoQJZaIbWBWN7tG5JhRYlwP/tyAKI7nZKlX2MZFDgL1r1WO1tJ18vVMUgxOSTa7w0iGCXlzC7OmNRLhf1RBK3Kc567Wyk+7Y9g2/zdgFA4sKqrqBl2q13874uyyjEfMxumIew0pmn8v9tmDZuWkTfWSp6gdq6LhqHiQQYKd/Ap64JBYesT+2vY5GUQwwwSEP9kfIOdvpiN1o+Fly5hEiyDl0I0aqGDNxmQlx1H+nDOr8fB6P0v/OEzuoXeB7iBoQaTbqEMxFRpPtdTt8tMoazfbAy70kL9yMragd4n0EqDSymtEX5bKqs0KM0WDrsx7l4sfxgNTNu8="
-    on_success: change
-    on_failure: change
+#notifications:
+#  slack:
+#    rooms:
+#      - secure: "jqKVge1LT5PaOJcjT89wLwiSwhL0b4bOcr0gOxLSHgyjRujToCd9K1+J5eaIwh8+PhCS5L7rGMT+0u5FlZ1Ltx1on1wjumDC90UC1GJsrhAr06ECoIvcogcMiGLmNUT77gZqaIf3Eeqg7aSpKAM3B8NLs2cHtsi94p5tyr2LfamGadD+1dUJQ/tD0vUYtvLVsp1LOOgkf7PuaSc3mb33HYW1QNF8rpw0JDcggjN7Yd6X6T6Qoq9fTktsP0a5ZXFB+zRKxuHcOFa8VoZl8GURpjeuM/cibD23Zgo+nUKef3Cmt1cS1eHzOuGOcYoEiPF5K5ohhh34GY/2H9OyCvFZcK6y194AU0X4vQoQJZaIbWBWN7tG5JhRYlwP/tyAKI7nZKlX2MZFDgL1r1WO1tJ18vVMUgxOSTa7w0iGCXlzC7OmNRLhf1RBK3Kc567Wyk+7Y9g2/zdgFA4sKqrqBl2q13874uyyjEfMxumIew0pmn8v9tmDZuWkTfWSp6gdq6LhqHiQQYKd/Ap64JBYesT+2vY5GUQwwwSEP9kfIOdvpiN1o+Fly5hEiyDl0I0aqGDNxmQlx1H+nDOr8fB6P0v/OEzuoXeB7iBoQaTbqEMxFRpPtdTt8tMoazfbAy70kL9yMragd4n0EqDSymtEX5bKqs0KM0WDrsx7l4sfxgNTNu8="
+#    on_success: change
+#    on_failure: change
 
