@@ -13,24 +13,14 @@ before_install:
   - sudo apt install rpm
   - sudo apt install build-essential python3 tar wget
   - python3 version.py
-  - GITHUB_VERSION=$(cat github_version.txt)
-  - FTP_VERSION=$(cat ftp_version.txt)
-  - BUILD=true
-  - if [ $GITHUB_VERSION == $FTP_VERSION ]; then
-    BUILD=false;
-    fi
 
 script:
-  - GITHUB_VERSION=$(cat github_version.txt)
-  - if [ BUILD == true ]; then
-    bash build.sh;
-    else
-    echo "Build skipped";
-    fi
+  - bash build.sh
+    
 
 deploy:
   provider: script  
-  script: if [ BUILD == true ]; then sudo apt-get install -y lftp; bash ftp_upload.sh; else echo "Deploy skipped"; fi
+  script: sudo apt-get install -y lftp; bash ftp_upload.sh
   skip_cleanup: true
 
 #notifications:
