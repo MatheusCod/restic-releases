@@ -23,7 +23,7 @@ then
   if [ $github_version > $ftp_version ]
   then
     lftp -c "open -u $USER,$PASS ftp://oplab9.parqtec.unicamp.br; put -O /repository/debian/ppc64el/restic/ $LOCALPATH/restic-$github_version-ppc64le.deb"
-    sudo lftp -c "open -u $USER,$PASS ftp://oplab9.parqtec.unicamp.br; put -O /repository/rpm/ppc64le/restic/ $LOCALPATH/restic-$github_version-1.ppc64le.rpm"
+    sudo lftp -c "open -u $USER,$PASS ftp://oplab9.parqtec.unicamp.br; put -O /repository/rpm/ppc64le/restic/ $LOCALPATH/rpmbuild/RPMS/ppc64le/restic-$github_version-1.ppc64le.rpm"
   fi
 fi
 
