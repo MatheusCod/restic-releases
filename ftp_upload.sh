@@ -21,10 +21,8 @@ then
   sudo mv empacotar-deb.sh $LOCALPATH
   sudo mv empacotar-rpm.sh $LOCALPATH
   cd $LOCALPATH
-  ls
   sudo ./empacotar-deb.sh restic restic-$github_version $github_version " "
   sudo ./empacotar-rpm.sh restic restic-$github_version $github_version " " "restic is a program that does backups right"
-  ls
   if [ $github_version > $ftp_version ]
   then
     lftp -c "open -u $USER,$PASS ftp://oplab9.parqtec.unicamp.br; put -O $REPO1 $LOCALPATH/restic-$github_version-ppc64le.deb"
