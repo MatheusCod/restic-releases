@@ -25,6 +25,7 @@ then
   sudo ./empacotar-rpm.sh restic restic-$github_version $github_version " " "restic is a program that does backups right"
   if [ $github_version > $ftp_version ]
   then
+    lftp -c "open -u $USER,$PASS ftp://oplab9.parqtec.unicamp.br; put -O $REMOTEPATH $LOCALPATH/restic-$github_version"
     lftp -c "open -u $USER,$PASS ftp://oplab9.parqtec.unicamp.br; put -O $REPO1 $LOCALPATH/restic-$github_version-ppc64le.deb"
     sudo lftp -c "open -u $USER,$PASS ftp://oplab9.parqtec.unicamp.br; put -O $REPO2 $ROOTPATH/restic-$github_version-1.ppc64le.rpm"
   fi
